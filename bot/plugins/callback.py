@@ -81,7 +81,7 @@ async def cb_navg(bot, update: CallbackQuery):
 
     if ((index_val + 1 )== max_pages) or ((index_val + 1) == len(results)): # Max Pages
         temp_results.append([
-            InlineKeyboardButton("⏮ Back", callback_data=f"navigate({index_val}|back|{query})")
+            InlineKeyboardButton("⏪ Back", callback_data=f"navigate({index_val}|back|{query})")
         ])
 
     elif int(index_val) == 0:
@@ -89,13 +89,13 @@ async def cb_navg(bot, update: CallbackQuery):
 
     else:
         temp_results.append([
-            InlineKeyboardButton("⏮ Back", callback_data=f"navigate({index_val}|back|{query})"),
-            InlineKeyboardButton("🚀 Go to Next page 🚀", callback_data=f"navigate({index_val}|next|{query})")
+            InlineKeyboardButton("⏪ Back", callback_data=f"navigate({index_val}|back|{query})"),
+            InlineKeyboardButton("Next ⏩", callback_data=f"navigate({index_val}|next|{query})")
         ])
 
     if not int(index_val) == 0:    
         temp_results.append([
-            InlineKeyboardButton(f"⭕️ Page {index_val + 1}/{len(results) if len(results) < max_pages else max_pages} ⭕️", callback_data="ignore")
+            InlineKeyboardButton(f"🔰 Page {index_val + 1}/{len(results) if len(results) < max_pages else max_pages} 🔰", callback_data="ignore")
         ])
     
     if show_invite and int(index_val) !=0 :
@@ -142,8 +142,7 @@ async def cb_navg(bot, update: CallbackQuery):
     
     reply_markup = InlineKeyboardMarkup(temp_results)
     
-    text=f"𝐇𝐄𝐘 𝐁𝐮𝐝𝐝𝐲⚡️{update.from_user.mention}\n🎬𝐌𝐨𝐯𝐢𝐞 𝐍𝐚𝐦𝐞:- <code>{query}</code>"
-        
+    text=f"<i>Found</i> <code>{leng}</code> <i>Results For Your Query:</i> <code>{query}</code>"
         
     try:
         await update.message.edit(
@@ -1602,14 +1601,14 @@ async def cb_about(bot, update: CallbackQuery):
     text=f"<i><u>Bot's Status</u></i>\n"
     text+=f"\n<b><i>Bot's Uptime:</i></b> <code>{time_formatter(time.time() - start_uptime)}</code>\n"
     text+=f"\n<b><i>Bot Funtion:</i></b> <i>Auto Filter Files</i>\n"
-    text+=f"""\n<b><i>Bot Support:</i></b> <a href="https://t.me/MovieRosters">@hindinewmoviesdo</a>\n"""
-    text+="""\n<b><i>Source Code:</i></b> <a href="https://github.com/Pulapatta/Right">Source</a>"""
+    text+=f"""\n<b><i>Bot Support:</i></b> <a href="https://t.me/CrazyBotszGrp">@CrazyBotszGrp</a>\n"""
+    text+="""\n<b><i>Source Code:</i></b> <a href="https://github.com/CrazyBotsz/Adv-Filter-Bot-V2">Source</a>"""
 
     buttons = [
         [
             InlineKeyboardButton
                 (
-                    "My Dev ⚡", url="https://t.me/Rafeeq_Kunnimon"
+                    "My Dev ⚡", url="https://t.me/AlbertEinstein_TG"
                 ),
                 
             InlineKeyboardButton
@@ -1641,9 +1640,9 @@ async def callback_data(bot, update: CallbackQuery):
     if query_data == "start":
         buttons = [[
             InlineKeyboardButton('My Dev 👨‍🔬', url='https://t.me/Rafeeq_Kunnimon'),
-            InlineKeyboardButton('Source Code 🧾', url ='https://github.com/Pulapatta/Right')
+            InlineKeyboardButton('Source Code 🧾', url ='https://github.com/Rafeeq-99/Auto-Filter-Bot-V2')
         ],[
-            InlineKeyboardButton('Support 🛠', url='https://t.me/MovieRosterGroup')
+            InlineKeyboardButton('Support 🛠', url='https://t.me/MR_Tech_Group')
         ],[
             InlineKeyboardButton('Help ⚙', callback_data="help")
         ]]
@@ -1708,4 +1707,3 @@ def time_formatter(seconds: float) -> str:
         ((str(minutes) + "m, ") if minutes else "") + \
         ((str(seconds) + "s") if seconds else "")
     return tmp
-
