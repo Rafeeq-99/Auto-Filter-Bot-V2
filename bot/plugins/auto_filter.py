@@ -60,11 +60,6 @@ async def auto_filter(bot, update):
     filters = await db.get_filters(group_id, query)
     
     if filters:
-        results.append(
-                [
-                    InlineKeyboardButton("💢 𝗝𝗼𝗶𝗻 𝗢𝘂𝗿 𝗠𝗮𝗶𝗻 𝗰𝗵𝗮𝗻𝗻𝗲𝗹 💢", url="https://t.me/MovieRosterOfficial")
-                ]
-            )
         for filter in filters: # iterating through each files
             file_name = filter.get("file_name")
             file_type = filter.get("file_type")
@@ -76,17 +71,17 @@ async def auto_filter(bot, update):
             if file_size < 1024:
                 file_size = f"[{file_size} B]"
             elif file_size < (1024**2):
-                file_size = f"[{str(round(file_size/1024, 2))} KB] "
+                file_size = f"[{str(round(file_size/1024, 2))} KiB] "
             elif file_size < (1024**3):
-                file_size = f"[{str(round(file_size/(1024**2), 2))} MB] "
+                file_size = f"[{str(round(file_size/(1024**2), 2))} MiB] "
             elif file_size < (1024**4):
-                file_size = f"[{str(round(file_size/(1024**3), 2))} GB] "
+                file_size = f"[{str(round(file_size/(1024**3), 2))} GiB] "
             
             
             file_size = "" if file_size == ("[0 B]") else file_size
             
             # add emoji down below inside " " if you want..
-            button_text = f"➪{file_size}📁{file_name}"
+            button_text = f"{file_size}{file_name}"
             
 
             if file_type == "video":
@@ -152,13 +147,13 @@ async def auto_filter(bot, update):
         if len_result != 1:
             result[0].append(
                 [
-                    InlineKeyboardButton("🚀 Go to Next page 🚀", callback_data=f"navigate(0|next|{query})")
+                    InlineKeyboardButton("Next ⏩", callback_data=f"navigate(0|next|{query})")
                 ]
             )
         
         # Just A Decaration
         result[0].append([
-            InlineKeyboardButton(f"📘 Page 1/{len_result if len_result < max_pages else max_pages} 📘", callback_data="ignore")
+            InlineKeyboardButton(f"🔰 Page 1/{len_result if len_result < max_pages else max_pages} 🔰", callback_data="ignore")
         ])
         
         
@@ -208,7 +203,7 @@ async def auto_filter(bot, update):
         try:
             await bot.send_message(
                 chat_id = update.chat.id,
-                text=f"𝐇𝐄𝐘 𝐁𝐮𝐝𝐝𝐲⚡️{update.from_user.mention}\n\n😇𝘾𝙡𝙞𝙘𝙠 𝙔𝙤𝙪𝙧 𝙁𝙞𝙡𝙚 📁 𝙎𝙏𝘼𝙍𝙏  𝙏𝙝𝙚 𝘽𝙤𝙩🤙\n\n👏𝐑𝐞𝐬𝐮𝐥𝐭𝐬 𝐅𝐨𝐮𝐧𝐝:- {(len_results)}\n\n🎬𝐌𝐨𝐯𝐢𝐞 𝐍𝐚𝐦𝐞:- <code>{query}</code>",
+                text=f"Found {(len_results)} Results For Your Query: <code>{query}</code>",
                 reply_markup=reply_markup,
                 parse_mode="html",
                 reply_to_message_id=update.message_id
@@ -290,4 +285,3 @@ async def recacher(group_id, ReCacheInvite=True, ReCacheActive=False, bot=Bot, u
             
             ACTIVE_CHATS[str(group_id)] = achatId
     return 
-
